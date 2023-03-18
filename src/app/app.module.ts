@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { provideFirebaseApp, initializeApp, FirebaseOptions } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
+import { FormsModule } from '@angular/forms';  // <<<< import it here
+
 
 @NgModule({
   declarations: [
@@ -15,6 +17,7 @@ import { environment } from 'src/environments/environment';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase as FirebaseOptions)),
     provideFirestore(() => getFirestore()),
   ],

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { Firestore, collectionData, collection, setDoc, doc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,8 +13,9 @@ export class AppComponent {
   // das "$"-Zeichen dazu wird verwendet um zu wissen das es sich um eine variable handelt die sich regelmäßig gupdatet
 
   todos: Array<any>;
+  todotext: string = ''; //keigt einen neuen Wert durch die ngModel
 
-  constructor(firestore: Firestore) {             // mit dem Befehlt "firestore: Firestore" wird Firestore importiert
+  constructor(private firestore: Firestore) {             // mit dem Befehlt "firestore: Firestore" wird Firestore importiert
     const coll = collection(firestore, 'todos');  // greift auf die collection in Firestore an der Stelle "todos"
     this.todos$ = collectionData(coll);           // mit "collectionData(coll);" werden die Daten aus der Datenbank "todos" geholt und der Variable "todos$" zugewiesen
 
@@ -23,5 +24,11 @@ export class AppComponent {
       this.todos = newTodos$;
       console.log(this.todos);
     });                                           // die "()=>{}" Funktion wird jedes mal aufgerufen wenn die Daten auf der Datenbank sich ändern
+  }
+
+
+  addToDo() {
+    const coll = collection(this.firestore, "todos"); // hole die collection in Firestore an der Stelle "todos"
+    setDoc(doc(coll), {name: this.todotext});         // setze einen neuen Wert
   }
 }

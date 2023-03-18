@@ -1,5 +1,10 @@
 <h1>To Do List</h1>
 
-<ul >
+<!-- [(ngModel)]="todotext" updatet die Variable "todotext" in der app-component.ts, 
+    das gleiche wie document.getElementById('todotext').value -->
+<input [(ngModel)]="todotext" type="text" id="todotext"> <button (click)="addToDo()">Add To do</button> 
+
+
+<ul>
     <li *ngFor="let todo of todos">{{ todo['name'] }}</li>
 </ul>
